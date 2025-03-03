@@ -1,88 +1,916 @@
-import csv
-import pandas as pd
-import numpy as np
-from docx import Document
-from docx.shared import Inches
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fund the Resistance</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+<h1 class="pop-title">FUND THE RESISTANCE</h1>
+<p class="blurb">The Trump administration thinks it can ignore settled law and precedent. Individuals and organizations are challenging these actions in court. But litigation costs money. Here we present current cases and provide links to the websites of the organizations pursuing these cases. You can support the resistance by helping to fund their litigation.<br><br>The source for this project is <a href="www.courtlistener.com">www.courtlistener.com</a>.<br>contact@resistancefund.net</p>
+<div class="button-container">
+<div class="row row-1">
+<a href="#topic1"><button class="btn">Immigration</button></a>
 
+<a href="#topic2"><button class="btn">Federal Workforce</button></a>
 
-# making docx for easier review of text.
-document = Document()
+<a href="#topic3"><button class="btn">Privacy</button></a>
 
+</div>
+<div class="row row-2">
+<a href="#topic4"><button class="btn">Federal Programs</button></a>
 
+<a href="#topic5"><button class="btn">Discrimination</button></a>
 
+<a href="#topic6"><button class="btn">Civil Liberties</button></a>
 
-data = pd.read_csv('data.csv')
+<a href="#topic7"><button class="btn">Diversity</button></a>
 
-org_lookup = pd.read_csv('org_lookup.csv')
+<a href="#topic8"><button class="btn">DOGE</button></a>
 
-with open("index.html", "w", encoding="utf-8") as file:
-    # Head, Title, Blurb
-    file.write(f'<!DOCTYPE html>\n<html lang="en">\n<head>\n<meta charset="UTF-8">\n<meta name="viewport" content="width=device-width, initial-scale=1.0">\n<title>Fund the Resistance</title>\n<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">\n<link rel="stylesheet" href="styles.css">\n</head>\n<body>\n<div class="container">\n<h1 class="pop-title">FUND THE RESISTANCE</h1>\n<p class="blurb">The Trump administration thinks it can ignore settled law and precedent. Individuals and organizations are challenging these actions in court. But litigation costs money. Here we present current cases and provide links to the websites of the organizations pursuing these cases. You can support the resistance by helping to fund their litigation.<br><br>The source for this project is <a href="www.courtlistener.com">www.courtlistener.com</a>.<br>contact@resistancefund.net</p>\n<div class="button-container">\n<div class="row row-1">')
-    
-    document.add_heading('Fund the Resistance', 0)
-    # Category buttons
-    topic_num = 1
-    for category in data['Category'].unique()[:3]:
-        file.write(f'\n<a href="#topic{topic_num}"><button class="btn">{category}</button></a>\n')
-        topic_num +=1
-    file.write('\n</div>\n<div class="row row-2">')
-    for category in data['Category'].unique()[3:]:
-        file.write(f'\n<a href="#topic{topic_num}"><button class="btn">{category}</button></a>\n')
-        topic_num +=1
-    file.write('\n</div>\n</div>\n')
+</div>
+</div>
+<div id="topic1" class="topic-section">
+<h2>Immigration</h2>
+<div id="subtopic1-1" class="subtopic-section">
+<h3>Birthright Citizenship</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69560542/new-hampshire-indonesian-community-support-v-trump/" target="_blank">New Hampshire Indonesian Community Support v. Trump</a></li>
+<p>Opposes Administration orders denying birthright citizenship (guaranteed under the Constitution, Federal law, and legal precedent) to children born to parents who are not citizens or legal residents, including those born to individuals who are in the US with temporary legal status</p>
+<div class="donate-button-container">
+<a href="https://www.aclunc.org/donation-info" target="_blank"><button class="donate-btn">ACLU Northern California</button></a>
 
-    # Topic boxes
-    topic_num = 1
-    for category in data['Category'].unique():
-        file.write(f'<div id="topic{topic_num}" class="topic-section">\n')
-        file.write(f'<h2>{category}</h2>\n')
-        document.add_heading(f'{category}', level=1)
+<a href="https://www.aclum.org/en/resources/ways-give" target="_blank"><button class="donate-btn">ACLU of MA</button></a>
 
-        # Sub Category Box
-        subtopic_num = 1
-        for subcat in data[data['Category'] == category]['Subcategory'].unique():
-            file.write(f'<div id="subtopic{topic_num}-{subtopic_num}" class="subtopic-section">\n')
-            file.write(f'<h3>{subcat}</h3>\n')
-            file.write('<div class="organization">\n<ul>\n')
-            document.add_heading(f'{subcat}', level=2)
+<a href="https://nysnaacp.org/donate" target="_blank"><button class="donate-btn">NAACP NY</button></a>
 
+<a href="https://www.aclumaine.org/en/give-aclu-maine" target="_blank"><button class="donate-btn">ACLU of ME</button></a>
 
-            # Case Box
-            for docket_id in data[(data['Category'] == category) & (data['Subcategory'] == subcat)]['Docket ID'].unique():
-                link = data[data['Docket ID'] == docket_id]['Case Link'].values[0]
-                case_name = data[data['Docket ID'] == docket_id]['Case Name'].values[0]
-                case_summary = data[data['Docket ID'] == docket_id]['Case Summary'].values[0]
-                parties = data[data['Docket ID'] == docket_id]['Party Name'].unique()
-                orgs = np.append(data[data['Docket ID'] == docket_id]['Organization ID'].unique(), parties)
-                file.write(f'<li class="case-item"><a class="case-link" href="{link}" target="_blank">{case_name}</a></li>\n')
-                file.write(f'<p>{case_summary}</p>\n')
-                document.add_heading(f'{case_name}', level = 3)
-                document.add_paragraph(f'{docket_id}')
-                document.add_paragraph(f'{case_summary}')
+<a href="https://www.aclu-nh.org/en/give" target="_blank"><button class="donate-btn">ACLU of NH</button></a>
 
-                # donate buttons
-                file.write(f'<div class="donate-button-container">')
-                org_names = []
-                for organization_id in orgs:
-                    organization_id = organization_id.upper()
-                    org_name = org_lookup[org_lookup['Organization ID']==organization_id]['Organization Name'].values[0]
-                    
-                    donate_link = org_lookup[org_lookup['Organization ID']==organization_id]['Donate Link'].values[0]
-                    if donate_link == "None":
-                        continue
-                    else:
-                        if org_name not in org_names:
-                            file.write(f'\n<a href="{donate_link}" target="_blank"><button class="donate-btn">{org_name}</button></a>\n')
-                    org_names.append(org_name)
-                file.write(f'</div class="donate-button-container">')
+<a href="https://www.asianlawcaucus.org/donate" target="_blank"><button class="donate-btn">Asian Law Caucus</button></a>
 
-            file.write('</ul>\n</div>\n')  # Closes .organization
-            file.write('</div>\n')  # Closes .subtopic-section
-            subtopic_num += 1
-        
-        file.write('</div>\n')  # Closes .topic-section
-        topic_num += 1
-    
-    file.write('</div>\n</body>\n</html>')
-    document.save('Case Text.docx')
+<a href="https://action.aclu.org/give/now" target="_blank"><button class="donate-btn">ACLU</button></a>
 
+<a href="https://naacpdc.org/donate" target="_blank"><button class="donate-btn">NAACP DC</button></a>
+
+<a href="https://americasfuture.org/donate/" target="_blank"><button class="donate-btn">America's Future</button></a>
+
+<a href="https://maketheroadny.org/?campaign=481633" target="_blank"><button class="donate-btn">Make The Road New York</button></a>
+
+<a href="https://lulac.org/contribute/" target="_blank"><button class="donate-btn">League Of United Latin American Citizens</button></a>
+
+<a href="https://www.indonesiancommunitysupport.com/donate" target="_blank"><button class="donate-btn">New Hampshire Indonesian Community Support</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69560579/doe-v-trump/" target="_blank">Doe v. Trump</a></li>
+<p>Opposes executive order denying birthright citizenship, including denial of passports, Social Security numbers, and the like.</p>
+<div class="donate-button-container">
+<a href="https://lawyersforcivilrights.org/" target="_blank"><button class="donate-btn">Lawyers for Civil Rights</button></a>
+
+<a href="https://donatenow.networkforgood.org/lawyersforcivilrights" target="_blank"><button class="donate-btn">Lawyers' Committee for Civil Rights and Economic Justice</button></a>
+
+<a href="https://la-colaborativa.org/donate/" target="_blank"><button class="donate-btn">La Colaborativa</button></a>
+
+<a href="https://braziliancenter.org/ways-to-give/" target="_blank"><button class="donate-btn">Brazilian Worker Center</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69561497/state-of-new-jersey-v-trump/" target="_blank">State of New Jersey v. Trump</a></li>
+<p>State governments suing to stop the denial of birthright citizenship.  States will sustain injury from the inability of individuals denied citizenship to access Federal  documents (passports) or Federally funded services.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69563661/casa-inc-v-trump/" target="_blank">Casa Inc. v. Trump</a></li>
+<p>Brought by advocacy organizations on behalf of a number of pregnant individuals in a variety of immigration statuses whose unborn child would be denied birthright citizenship</p>
+<div class="donate-button-container">
+<a href="https://www.law.georgetown.edu/alumni/giving/how-to-make-a-gift/" target="_blank"><button class="donate-btn">Georgetown University Law Center</button></a>
+
+<a href="https://www.law.georgetown.edu/alumni/giving/how-to-make-a-gift/" target="_blank"><button class="donate-btn">Institute for Constitutional Advocacy and Protection</button></a>
+
+<a href="https://www.asylumadvocacy.org/donate/" target="_blank"><button class="donate-btn">Asylum Seeker Advocacy Project (ASAP)</button></a>
+
+<a href="https://help.asylumadvocacy.org/donate/" target="_blank"><button class="donate-btn">Asylum Seeker Advocacy Project, Inc.</button></a>
+
+<a href="https://www.casainc.org/donate-now.html" target="_blank"><button class="donate-btn">Casa, Inc.</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69576744/franco-aleman-v-trump/" target="_blank">Franco Aleman v. Trump</a></li>
+<p>Class action suit, including named plaintiffs who are pregnant but not citizens or lawful residents.  Seeks to overturn Executive Order denying birthright citizenship</p>
+<div class="donate-button-container">
+<a href="https://nwirp.org/donate/" target="_blank"><button class="donate-btn">Northwest Immigrant Rights Project</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69561931/state-of-washington-v-trump/" target="_blank">State of Washington v. Trump</a></li>
+<p>Four states (Arizona, Illinois, Oregon, Washington) sue to reverse Executive Order banning birthright citizenship.  Notes increased costs to states as well as damages to the children rendered stateless.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69595158/oca-asian-pacific-american-advocates-v-rubio/" target="_blank">OCA - ASIAN PACIFIC AMERICAN ADVOCATES v. RUBIO</a></li>
+<p>Birthright citizenship case brought by an organization of Asian and Pacific Islanders</p>
+<div class="donate-button-container">
+<a href="https://www.washlaw.org/donate-now/" target="_blank"><button class="donate-btn">Washington Lawyers' Committee</button></a>
+
+<a href="https://www.advancingjustice-aajc.org/ways-give" target="_blank"><button class="donate-btn">Asian Americans Advancing Justice</button></a>
+
+<a href="https://www.ocanational.org/donate" target="_blank"><button class="donate-btn">OCA - Asian Pacific American Advocates</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69594402/county-of-santa-clara-v-trump/" target="_blank">County of Santa Clara v. Trump</a></li>
+<p>California County with a large immigrant population alleging damages to individual residents and to the County government (that provides social services) as a result of the denial of birthright citizenship.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69638232/new-york-immigration-coalition-v-donald-j-trump/" target="_blank">New York Immigration Coalition v. Donald J. Trump</a></li>
+<p>Brought on behalf of a pregnant Venezuelan immigrant with temporary protected status whose child would lose citizenship under the Trump Administration Birthright citizenship order.</p>
+<div class="donate-button-container">
+<a href="https://www.latinojustice.org/en/donate" target="_blank"><button class="donate-btn">LatinoJustice PRLDEF</button></a>
+
+<a href="https://www.nyic.org/?gad_source=1&gclid=Cj0KCQiAwtu9BhC8ARIsAI9JHakJ_2Feuna2NShoDuSOn8DqIXT8DEv17X0kz2sKSqjvLyafkNogD20aAoDoEALw_wcB" target="_blank"><button class="donate-btn">New York Immigration Coalition</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic1-2" class="subtopic-section">
+<h3>Sanctuary</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69577670/organized-communities-against-deportations-v-donald-trump/" target="_blank">Organized Communities Against Deportations v. Donald Trump</a></li>
+<p>Chicago community organizations sue to prevent the Federal Government from targeting Chicago because of its' sanctuary city' policies and refusal to collaborate with ICE in certain situations.</p>
+<div class="donate-button-container">
+<a href="https://www.raisetheflooralliance.org/give" target="_blank"><button class="donate-btn">Raise The Floor Alliance</button></a>
+
+<a href="https://www.icirr.org/" target="_blank"><button class="donate-btn">Illinois Coalition For Immigrant And Refugee Rights</button></a>
+
+<a href="https://www.bpncchicago.org/" target="_blank"><button class="donate-btn">Brighton Park Neighborhood Council</button></a>
+
+<a href="https://www.organizedcommunities.org/donate" target="_blank"><button class="donate-btn">Organized Communities Against Deportations</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69623767/city-and-county-of-san-francisco-v-donald-j-trump/" target="_blank">City and County of San Francisco v. Donald J. Trump</a></li>
+<p>San Francisco, Portland, New Haven, Santa Clara County (CA), and King County (WA) sue to enjoin the Federal Government from taking punitive actions against local jurisdictions that refuse to cooperate with certain immigration enforcement actions.</p>
+<div class="donate-button-container">
+<a href="https://www.publicrightsproject.org/#" target="_blank"><button class="donate-btn">Public Rights Project</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69663207/city-of-new-york-v-trump/" target="_blank">City of New York v. Trump</a></li>
+<p>Demands return of $80 million already paid to New York for immigrant services, but recovered from the City’s bank account without prior notice</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69580474/philadelphia-yearly-meeting-of-the-religious-society-of-friends-v-us/" target="_blank">Philadelphia Yearly Meeting of the Religious Society of Friends v. U.S. Department of Homeland Security</a></li>
+<p>Quakers sue to reverse policy of Trump Administration permitting ICE enforcement actions in religious institutions</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://cbf.net/donate/" target="_blank"><button class="donate-btn">Cooperative Baptist Fellowship</button></a>
+
+<a href="https://sikhtemple.org/donations-2/" target="_blank"><button class="donate-btn">Sikh Temple Sacramento</button></a>
+
+<a href="https://nyym.org/content/donating-new-york-yearly-meeting" target="_blank"><button class="donate-btn">New York Yearly Meeting Of The Religious Society Of Friends, Inc.</button></a>
+
+<a href="https://www.fgcquaker.org/quaker-finder/richmond-friends-meeting/" target="_blank"><button class="donate-btn">Richmond Friends Meeting Of The Religious Society Of Friends</button></a>
+
+<a href="https://www.adelphifriends.org/card/give/" target="_blank"><button class="donate-btn">Adelphi Friends Meeting Of The Religious Society Of Friends</button></a>
+
+<a href="https://www.bym-rsf.org/giving/" target="_blank"><button class="donate-btn">Baltimore Yearly Meeting Of The Religious Society Of Friends, Inc.</button></a>
+
+<a href="https://neym.org/support" target="_blank"><button class="donate-btn">New England Yearly Meeting Of The Religious Society Of Friends</button></a>
+
+<a href="https://www.pym.org/donate/" target="_blank"><button class="donate-btn">Philadelphia Yearly Meeting Of The Religious Society Of Friends</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69628285/mennonite-church-usa-v-us-department-of-homeland-security/" target="_blank">MENNONITE CHURCH USA v. U.S. DEPARTMENT OF HOMELAND SECURITY</a></li>
+<p>Several Jewish and Christian congregations sue to block Trump policy permitting ICE enforcement actions in houses of worship as a violation of the First Amendment and Religious Freedom Restoration Act</p>
+<div class="donate-button-container">
+<a href="https://www.law.georgetown.edu/alumni/giving/how-to-make-a-gift/" target="_blank"><button class="donate-btn">Institute for Constitutional Advocacy and Protection</button></a>
+
+<a href="https://www.law.georgetown.edu/icap/donate/" target="_blank"><button class="donate-btn">Georgetown Law ICAP</button></a>
+
+<a href="https://churchofthebrethren.givingfuel.com/all-ministries" target="_blank"><button class="donate-btn">Church Of The Brethren, Inc.</button></a>
+
+<a href="https://www.wichurches.org/donate" target="_blank"><button class="donate-btn">Wisconsin Council Of Churches</button></a>
+
+<a href="https://www.wnccumc.org/online-donations-to-churches" target="_blank"><button class="donate-btn">Western North Carolina Conference Of The United Methodist Church</button></a>
+
+<a href="https://crm.uscj.org/civicrm/contribute/transact?reset=1&id=1" target="_blank"><button class="donate-btn">United Synagogue Of Conservative Judaism</button></a>
+
+<a href="https://www.uua.org/giving/friends?utm_medium=uua.org&utm_source=header&utm_campaign=design&utm_content=&segmentCode=FRUUAORG" target="_blank"><button class="donate-btn">Unitarian Universalist Association</button></a>
+
+<a href="https://donate.reformjudaism.org/give/584202/#!/donation/checkout?c_src=URJ-Ongoing-Website&c_src2=DonateButton" target="_blank"><button class="donate-btn">Union For Reform Judaism</button></a>
+
+<a href="https://www.councilofchurchesri.org/" target="_blank"><button class="donate-btn">Rhode Island State Council Of Churches</button></a>
+
+<a href="https://www.reconstructingjudaism.org/support/" target="_blank"><button class="donate-btn">Reconstructing Judaism</button></a>
+
+<a href="https://www.rabbinicalassembly.org/civicrm/contribute/transact?reset=1&id=6" target="_blank"><button class="donate-btn">Rabbinical Assembly</button></a>
+
+<a href="https://ncchurches.org/donate/" target="_blank"><button class="donate-btn">North Carolina Council Of Churches</button></a>
+
+<a href="https://www.nyscoc.org/donate#:~:text=%E2%80%8DThere%20are%20numerous%20ways%20to,donations%20are%20100%25%20tax%20deductible." target="_blank"><button class="donate-btn">New York State Council Of Churches</button></a>
+
+<a href="https://ny-reg.brtapp.com/MakeaDonation" target="_blank"><button class="donate-btn">New York Annual Conference Of The United Methodist Church</button></a>
+
+<a href="https://www.masscouncilofchurches.org/donate/" target="_blank"><button class="donate-btn">Massachusetts Council Of Churches</button></a>
+
+<a href="https://www.juntosencristo.org/donate" target="_blank"><button class="donate-btn">Latino Christian National Network</button></a>
+
+<a href="https://www.gcorr.org/donate" target="_blank"><button class="donate-btn">General Commission On Religion And Race Of The United Methodist Church</button></a>
+
+<a href="https://pcusa.org/donate/102-shared-mission-support" target="_blank"><button class="donate-btn">General Assembly Of The Presbyterian Church (U.S.A.)</button></a>
+
+<a href="https://www.fgcquaker.org/ways-to-donate/donate-today/" target="_blank"><button class="donate-btn">Friends General Conference</button></a>
+
+<a href="https://fellowshipsouthwest.org/give" target="_blank"><button class="donate-btn">Fellowship Southwest</button></a>
+
+<a href="https://convencion.givingfuel.com/donacion" target="_blank"><button class="donate-btn">Convencion Bautista Hispana De Texas</button></a>
+
+<a href="https://www.ccarnet.org/about-us/how-to-donate/" target="_blank"><button class="donate-btn">Central Conference Of American Rabbis</button></a>
+
+<a href="https://www.cacucc.org/donate" target="_blank"><button class="donate-btn">Central Atlantic Conference United Church Of Christ</button></a>
+
+<a href="https://amez.org/our-church/" target="_blank"><button class="donate-btn">African Methodist Episcopal Zion Church</button></a>
+
+<a href="https://www.mennoniteusa.org/give/" target="_blank"><button class="donate-btn">Mennonite Church Usa</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69635800/denver-public-schools-v-noem/" target="_blank">Denver Public Schools v. Noem</a></li>
+<p>Denver Public Schools sue to prevent normal immigration enforcement actions in schools under the new Trump Administration policy</p>
+<div class="donate-button-container"></div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic1-3" class="subtopic-section">
+<h3>Expedited Removal</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69566723/make-the-road-new-york-v-huffman/" target="_blank">MAKE THE ROAD NEW YORK v. HUFFMAN</a></li>
+<p>Suit to enjoin ICE from expanding the "expedited removal" process to aliens anywhere in the country who cannot prove legal status or continuous presence in the US for two years.</p>
+<div class="donate-button-container">
+<a href="https://action.aclu.org/give/support-aclu-dc" target="_blank"><button class="donate-btn">ACLU of DC</button></a>
+
+<a href="https://www.aclunc.org/donation-info" target="_blank"><button class="donate-btn">ACLU Northern California</button></a>
+
+<a href="https://action.aclu.org/give/now" target="_blank"><button class="donate-btn">ACLU</button></a>
+
+<a href="https://maketheroadny.org/?campaign=481633" target="_blank"><button class="donate-btn">Make The Road New York</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic1-4" class="subtopic-section">
+<h3>Due Process</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69599829/amica-center-for-immigrant-rights-v-united-states-department-of-justice/" target="_blank">AMICA CENTER FOR IMMIGRANT RIGHTS v. UNITED STATES DEPARTMENT OF JUSTICE</a></li>
+<p>To enjoin the Administration from defunding and disbanding programs funded by Congress to provide assistance and education supporting immigrants in the asylum/removal process.</p>
+<div class="donate-button-container">
+<a href="https://www.rmian.org/donate" target="_blank"><button class="donate-btn">Rocky Mountain Immigrant Advocacy Network</button></a>
+
+<a href="https://www.pirclaw.org/donate/" target="_blank"><button class="donate-btn">Pennsylvania Immigration Resource Center</button></a>
+
+<a href="https://www.nwirp.org/donate/" target="_blank"><button class="donate-btn">Northwest Immigrant Rights Project</button></a>
+
+<a href="https://immigrantjustice.org/ways-you-can-make-your-gift-nijc" target="_blank"><button class="donate-btn">National Immigrant Justice Center</button></a>
+
+<a href="https://www.islaimmigration.org/" target="_blank"><button class="donate-btn">Immigration Services And Legal Advocacy</button></a>
+
+<a href="https://firrp.org/ways-to-give/" target="_blank"><button class="donate-btn">Florence Immigrant And Refugee Rights Project</button></a>
+
+<a href="https://estrelladelpaso.org/donate" target="_blank"><button class="donate-btn">Estrella Del Paso</button></a>
+
+<a href="https://www.americangateways.org/donate" target="_blank"><button class="donate-btn">American Gateways</button></a>
+
+<a href="https://amicacenter.org/donate/" target="_blank"><button class="donate-btn">Amica Center For Immigrant Rights</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69606027/refugee-and-immigrant-center-for-education-and-legal-services-v-noem/" target="_blank">REFUGEE AND IMMIGRANT CENTER FOR EDUCATION AND LEGAL SERVICES v. NOEM</a></li>
+<p>Challenges denial of right to apply for asylum of immigrants already in the US</p>
+<div class="donate-button-container">
+<a href="https://action.aclu.org/give/now" target="_blank"><button class="donate-btn">ACLU</button></a>
+
+<a href="https://immigrantjustice.org/how-help" target="_blank"><button class="donate-btn">National Immigrant Justice Center</button></a>
+
+<a href="https://action.aclu.org/give/support-aclu-dc" target="_blank"><button class="donate-btn">ACLU of DC</button></a>
+
+<a href="https://firrp.org/ways-to-give/" target="_blank"><button class="donate-btn">Florence Immigrant & Refugee Rights Project</button></a>
+
+<a href="https://www.las-americas.org/" target="_blank"><button class="donate-btn">Las Americas Immigrant Advocacy Center</button></a>
+
+<a href="https://www.raicestexas.org/" target="_blank"><button class="donate-btn">Refugee And Immigrant Center For Education And Legal Services</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69633721/las-americas-immigrant-advocacy-center-v-noem/" target="_blank">LAS AMERICAS IMMIGRANT ADVOCACY CENTER v. NOEM</a></li>
+<p>Suit on behalf of immigrants shipped to Guantanamo Naval Base and denied access to counsel or communication with family members.</p>
+<div class="donate-button-container">
+<a href="https://action.aclu.org/give/now" target="_blank"><button class="donate-btn">ACLU</button></a>
+
+<a href="https://action.aclu.org/give/support-aclu-dc" target="_blank"><button class="donate-btn">ACLU of DC</button></a>
+
+<a href="https://refugeerights.org/donate/" target="_blank"><button class="donate-btn">International Refugee Assistance Project</button></a>
+
+<a href="https://aijustice.org/donate/" target="_blank"><button class="donate-btn">Americans For Immigrant Justice</button></a>
+
+<a href="https://www.americangateways.org/donate" target="_blank"><button class="donate-btn">American Gateways</button></a>
+
+<a href="https://www.raicestexas.org/" target="_blank"><button class="donate-btn">Refugee And Immigrant Center For Education And Legal Services</button></a>
+
+<a href="https://www.las-americas.org/" target="_blank"><button class="donate-btn">Las Americas Immigrant Advocacy Center</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic1-5" class="subtopic-section">
+<h3>Temporarily Protected Status</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69655305/national-tps-alliance-v-noem/" target="_blank">National TPS Alliance v. Noem</a></li>
+<p>Venezuelans challenge withdrawal of Temporarily Protected Status as contrary to immigration law and Administrative Procedure Act</p>
+<div class="donate-button-container">
+<a href="https://giveto.ucla.edu/" target="_blank"><button class="donate-btn">UCLA School of Law</button></a>
+
+<a href="https://action.aclu.org/give/now" target="_blank"><button class="donate-btn">ACLU</button></a>
+
+<a href="https://ndlon.org/donate/" target="_blank"><button class="donate-btn">NDLON</button></a>
+
+<a href="https://www.aclunc.org/donation-info" target="_blank"><button class="donate-btn">ACLU Northern California</button></a>
+
+<a href="https://www.nationaltpsalliance.org/donate/" target="_blank"><button class="donate-btn">National TPS Alliance</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69656739/casa-inc-v-noem/" target="_blank">CASA, Inc. v. Noem</a></li>
+<p>Venezuelans challenge ending of Temporarily Protected Status as contrary to relevant statues, without required findings or notice periods.</p>
+<div class="donate-button-container">
+<a href="https://maketheroadny.org/?campaign=481633" target="_blank"><button class="donate-btn">Make The Road New York</button></a>
+
+<a href="https://www.casainc.org/donate-now.html" target="_blank"><button class="donate-btn">Casa, Inc.</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic1-6" class="subtopic-section">
+<h3>Refugees</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69626101/pacito-v-trump/" target="_blank">Pacito v. Trump</a></li>
+<p>Individual refugees and faith-based refugee assistance organizations sue for injunctive relief against an Executive Order canceling approved refugee admissions and withdrawing funds from refugee relief organizations.</p>
+<div class="donate-button-container">
+<a href="https://refugeerights.org/donate/?campaign=593681" target="_blank"><button class="donate-btn">International Refugee Assistance Proejct</button></a>
+
+<a href="https://cwsglobal.org/donate-3/" target="_blank"><button class="donate-btn">Church World Service Inc</button></a>
+
+<a href="https://act.hias.org/page/53286/donate/1" target="_blank"><button class="donate-btn">Hias Inc</button></a>
+
+<a href="https://lcsnw.app.neoncrm.com/forms/donations" target="_blank"><button class="donate-btn">Lutheran Community Services Northwest</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69649820/united-states-conference-of-catholic-bishops-v-united-states-department-of/" target="_blank">UNITED STATES CONFERENCE OF CATHOLIC BISHOPS v. UNITED STATES DEPARTMENT OF STATE</a></li>
+<p>Refugees service provider challenges summary cancellation of funding for contract to provide services to approved refugees</p>
+<div class="donate-button-container">
+<a href="https://www.usccb.org/committees/national-collections/how-give" target="_blank"><button class="donate-btn">United States Conference of Catholic Bishops</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+</div>
+<div id="topic2" class="topic-section">
+<h2>Federal Workforce</h2>
+<div id="subtopic2-1" class="subtopic-section">
+<h3>Civil Service</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69560537/national-treasury-employees-union-v-trump/" target="_blank">NATIONAL TREASURY EMPLOYEES UNION v. TRUMP</a></li>
+<p>Federal employees union sues to prevent reclassification of large numbers of civil servants into a separate employment class stripped of usual Civil Service protections.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69617919/government-accountability-project-v-united-states-office-of-personnel/" target="_blank">GOVERNMENT ACCOUNTABILITY PROJECT v. UNITED STATES OFFICE OF PERSONNEL MANAGEMENT</a></li>
+<p>Challenges removal of a large number of Federal employees from the Civil Service system and designation as potential political hires.</p>
+<div class="donate-button-container">
+<a href="https://protectdemocracy.org/donate/" target="_blank"><button class="donate-btn">Protect Democracy</button></a>
+
+<a href="https://www.flipcause.com/secure/cause_pdetails/MTMxMTIz?utm_source=donate-now&utm_medium=button" target="_blank"><button class="donate-btn">National Active And Retired Federal Employees Association</button></a>
+
+<a href="https://crm.whistleblower.org/civicrm/contribute/transact?reset=1&id=2" target="_blank"><button class="donate-btn">Government Accountability Project</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69586644/public-employees-for-environmental-responsibility-v-trump/" target="_blank">Public Employees for Environmental Responsibility v. Trump</a></li>
+<p>Organization of Federal employees in environmental fields sues to prevent the Trump Administration from implementing proposed Section F, removing large numbers of employees from the merit-based Civil Service and subjecting them to arbitrary political firing.</p>
+<div class="donate-button-container">
+<a href="https://www.citizensforethics.org/" target="_blank"><button class="donate-btn">Citizens for Responsibility & Ethics</button></a>
+
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://peer.org/donate/" target="_blank"><button class="donate-btn">Public Employees For Environmental Responsibility</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69588089/american-federation-of-government-employees-afl-cio-v-trump/" target="_blank">AMERICAN FEDERATION OF GOVERNMENT EMPLOYEES, AFL-CIO v. TRUMP</a></li>
+<p>Labor Unions oppose Trump Administration Schedule F orders as violating Civil Service laws and required process under provisions of the Administrative Procedures Act</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">American Federation Of Government Employees, AFL-CIO</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69610323/american-federation-of-government-employees-afl-cio-v-ezell/" target="_blank">American Federation of Government Employees, AFL-CIO v. Ezell</a></li>
+<p>Challenges "Fork in the Road" buyout offer to Federal employees as inconsistent and without statutory basis.</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://act.afscme.org/fundraising/contribute-to-afscme-people-today" target="_blank"><button class="donate-btn">AFSCME</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">AFGE</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">American Federation Of Government Employees, AFL-CIO</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69612129/wilcox-v-trump/" target="_blank">WILCOX v. TRUMP</a></li>
+<p>Challenges firing of members of National Labor Relations Board as arbitrary and contrary to NLRB statute.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69637796/grundmann-v-trump/" target="_blank">GRUNDMANN v. TRUMP</a></li>
+<p>Member of the Board of the Federal Labor Relations Authority challenges removal during term without cause or hearing.</p>
+<div class="donate-button-container">
+<a href="https://www.lawyerscommittee.org/more-ways-to-give/" target="_blank"><button class="donate-btn">Lawyers' Committee for Civil Rights Under Law</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69624836/dellinger-v-bessent/" target="_blank">DELLINGER v. BESSENT</a></li>
+<p>Challenges removal of the head of the Office of Special Counsel</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69631849/harris-v-bessent/" target="_blank">HARRIS v. BESSENT</a></li>
+<p>Challenges firing of a member of the Merit Systems Protection Board without just cause</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69668112/leblanc-v-united-states-privacy-and-civil-liberties-oversight-board/" target="_blank">LEBLANC v. UNITED STATES PRIVACY AND CIVIL LIBERTIES OVERSIGHT BOARD</a></li>
+<p>Challenges removal by President of members of this Board, an advisory body whose appointment are approved by Congress and charged with providing advice on the balancing of national security (counter terrorism) activities and privacy protections</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69632418/storch-v-hegseth/" target="_blank">STORCH v. HEGSETH</a></li>
+<p>Inspector Generals in several agencies challenge dismissal.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69634526/national-treasury-employees-union-v-donald-j-trump/" target="_blank">NATIONAL TREASURY EMPLOYEES UNION v. DONALD J. TRUMP</a></li>
+<p>Unions challenge mass layoffs (reduction in Force--RIF) and termination of all probationary employees as contrary to Federal statutes.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69655364/american-federation-of-government-employees-afl-cio-v-united-states/" target="_blank">American Federation Of Government Employees, AFL-CIO v. United States Office of Personnel Management</a></li>
+<p>Challenges mass firings of employees in probationary period by “form” emails originating in the Office of Personnel Management and alleging that the employees are being fired for “performance reasons,” without any factual basis for determining inadequate performance</p>
+<div class="donate-button-container">
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">AFGE</button></a>
+
+<a href="https://votevets.org/" target="_blank"><button class="donate-btn">VoteVets</button></a>
+
+<a href="https://westernwatersheds.org/support/" target="_blank"><button class="donate-btn">Western Watersheds Project</button></a>
+
+<a href="https://protectnps.org/donate/" target="_blank"><button class="donate-btn">Coalition to Protect Americas National Parks</button></a>
+
+<a href="https://commondefense.us/donate" target="_blank"><button class="donate-btn">Common Defense Civic Engagement</button></a>
+
+<a href="https://mainstreetalliance.org/donate" target="_blank"><button class="donate-btn">Main Street Alliance</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">American Federation Of Government Employees, AFL-CIO</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69609079/does-1-9-v-department-of-justice/" target="_blank">DOES 1-9 v. DEPARTMENT OF JUSTICE</a></li>
+<p>FBI agents sue to prevent purge of agents involved in January 6  and Mar al Lago cases</p>
+<div class="donate-button-container">
+<a href="https://www.centerforemploymentjustice.com/" target="_blank"><button class="donate-btn">Center for Employment Justice</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69609596/federal-bureau-of-investigation-agents-association-v-department-of-justice/" target="_blank">FEDERAL BUREAU OF INVESTIGATION AGENTS ASSOCIATION v. DEPARTMENT OF JUSTICE</a></li>
+<p>FBI agent union sues to block public identification of agents involved in January 6 or Mar al Lago investigations or their summary dismissal</p>
+<div class="donate-button-container"></div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic2-2" class="subtopic-section">
+<h3>DOGE</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69559444/public-citizen-inc-v-trump/" target="_blank">PUBLIC CITIZEN, INC. v. TRUMP</a></li>
+<p>Challenges creation and operation of DOGE as a violation of FACA, which controls the appointment and operation of Governmental advisory committees</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://www.citizen.org/article/public-citizen-and-public-citizen-foundation/" target="_blank"><button class="donate-btn">Public Citizen</button></a>
+
+<a href="https://www.citizensforethics.org/" target="_blank"><button class="donate-btn">Citizens For Responsibility and Ethics In Washington</button></a>
+
+<a href="https://www.autosafety.org/support-us/" target="_blank"><button class="donate-btn">Center for Auto Safety</button></a>
+
+<a href="https://votevets.org/" target="_blank"><button class="donate-btn">Votevets Action Fund</button></a>
+
+<a href="https://www.dvnf.org/donation/" target="_blank"><button class="donate-btn">Minority Veterans of America</button></a>
+
+<a href="https://www.aft.org/action" target="_blank"><button class="donate-btn">American Federation Of Teachers</button></a>
+
+<a href="https://www.apha.org/" target="_blank"><button class="donate-btn">American Public Health Association</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">American Federation Of Government Employees</button></a>
+
+<a href="https://statedemocracydefenders.org/fund/" target="_blank"><button class="donate-btn">State Democracy Defenders Fund</button></a>
+
+<a href="https://www.citizen.org/" target="_blank"><button class="donate-btn">Public Citizen, Inc.</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69559476/lentini-v-department-of-government-efficiency/" target="_blank">LENTINI v. DEPARTMENT OF GOVERNMENT EFFICIENCY</a></li>
+<p>Challenges creation and operation of DOGE as in violation of FACA, law controlling appointment, and operation of Federal advisory committees.</p>
+<div class="donate-button-container">
+<a href="https://www.nationalsecuritylaw.org/" target="_blank"><button class="donate-btn">National Security Counselors</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69559460/american-public-health-association-v-office-of-management-and-budget/" target="_blank">AMERICAN PUBLIC HEALTH ASSOCIATION v. OFFICE OF MANAGEMENT AND BUDGET</a></li>
+<p>A variety of public interest groups oppose creation and operation of DOGE as a violation of FACA (Federal Advisory Committees Act)</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://www.citizensforethics.org/" target="_blank"><button class="donate-btn">Citizens for Responsibility & Ethics</button></a>
+
+<a href="https://www.citizensforethics.org/" target="_blank"><button class="donate-btn">Citizens For Responsibility and Ethics In Washington</button></a>
+
+<a href="https://www.autosafety.org/support-us/" target="_blank"><button class="donate-btn">Center For Auto Safety</button></a>
+
+<a href="https://votevets.org/" target="_blank"><button class="donate-btn">Votevets Action Fund</button></a>
+
+<a href="https://www.dvnf.org/donation/" target="_blank"><button class="donate-btn">Minority Veterans of America</button></a>
+
+<a href="https://www.aft.org/action" target="_blank"><button class="donate-btn">American Federation Of Teachers</button></a>
+
+<a href="https://www.apha.org/" target="_blank"><button class="donate-btn">American Public Health Association</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69559509/center-for-biological-diversity-v-office-of-management-and-budget/" target="_blank">CENTER FOR BIOLOGICAL DIVERSITY v. OFFICE OF MANAGEMENT AND BUDGET</a></li>
+<p>Environmental group suing under Freedom of Information Act for Government failure to deliver documents re: DOGE plans and operations</p>
+<div class="donate-button-container">
+<a href="https://act.biologicaldiversity.org/hoJ4NQpvm0GmcOy8Z7tSFw2?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbL_XtMHlS90rsnDW-Oij1bTc_B84axBQjw_e727ESpRwD9Ih1EhXEaAr6CEALw_wcB" target="_blank"><button class="donate-btn">Center for Biological Diversity</button></a>
+
+<a href="https://www.biologicaldiversity.org/" target="_blank"><button class="donate-btn">Center For Biological Diversity</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69636722/does-1-26-v-musk/" target="_blank">Does 1-26 v. Musk</a></li>
+<p>USAID  employees sue to stop DOGE access to Agency systems and personnel information contained therein.</p>
+<div class="donate-button-container">
+<a href="https://secure.actblue.com/donate/state-democracy-defenders-action-1" target="_blank"><button class="donate-btn">State Democracy Defenders</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69638651/state-of-new-mexico-v-musk/" target="_blank">STATE OF NEW MEXICO v. MUSK</a></li>
+<p>Nineteen states challenge DOGE for its access to secure Departmental data systems (Treasury, DOE) and administrative actions taken by Musk and DOGE employees not properly empowered under the Appointmements Clause.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69582338/doe-v-office-of-personnel-management/" target="_blank">DOE v. OFFICE OF PERSONNEL MANAGEMENT</a></li>
+<p>Class action on behalf of employees asked to cooperate in building a Government-wide email system run by DOGE without proper privacy protections.</p>
+<div class="donate-button-container">
+<a href="https://www.nationalsecuritylaw.org/" target="_blank"><button class="donate-btn">National Security Counselors</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69624412/national-treasury-employees-union-v-vought/" target="_blank">NATIONAL TREASURY EMPLOYEES UNION v. VOUGHT</a></li>
+<p>Employees of the Consumer Financial Protection Bureau (CPFB) sue to prevent release of agency data on them or their work to DOGE as a violation of the Privacy Act and established Federal database security procedures.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69627950/electronic-privacy-information-center-v-us-office-of-personnel/" target="_blank">Electronic Privacy Information Center v. U.S. Office of Personnel Management</a></li>
+<p>Suit on behalf of taxpayers, benefit recipients and Federal employees  to enjoin unauthorized release of Treasury payment and Office of Personnel Management employee data bases to DOGE as contrary to privacy rights and established data system regulations.</p>
+<div class="donate-button-container">
+<a href="https://epic.org/donate-to-epic/" target="_blank"><button class="donate-btn">EPIC</button></a>
+
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://epic.org/donate-to-epic/" target="_blank"><button class="donate-btn">Electronic Privacy Information Center</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69631573/american-federation-of-government-employees-afl-cio-v-us-office-of/" target="_blank">American Federation of Government Employees, AFL-CIO v. U.S. Office of Personnel Management</a></li>
+<p>Suit by union and individual Federal employees for violating of privacy statutes by releasing personal data from the Office of Personnel Management to DOGE agents.</p>
+<div class="donate-button-container">
+<a href="https://www.eff.org/pages/donate-eff" target="_blank"><button class="donate-btn">Electronic Frontier Foundation</button></a>
+
+<a href="https://secure.actblue.com/donate/state-democracy-defenders-action-1" target="_blank"><button class="donate-btn">State Democracy Defenders</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">American Federation Of Government Employees, AFL-CIO</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69629660/nemeth-greenleaf-v-united-states-office-of-personnel-management/" target="_blank">NEMETH-GREENLEAF v. UNITED STATES OFFICE OF PERSONNEL MANAGEMENT</a></li>
+<p>Class action suit to prevent disclosure of Federal employee’s personal data to DOGE</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69630062/american-oversight-v-us-department-of-government-efficiency/" target="_blank">AMERICAN OVERSIGHT v. U.S. DEPARTMENT OF GOVERNMENT EFFICIENCY</a></li>
+<p>Seeks to compel response to Freedom of Information Act (FOIA) re: activities of DOGE</p>
+<div class="donate-button-container">
+<a href="https://americanoversight.org/contribute/" target="_blank"><button class="donate-btn">American Oversight</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+</div>
+<div id="topic3" class="topic-section">
+<h2>Privacy</h2>
+<div id="subtopic3-1" class="subtopic-section">
+<h3>DOGE</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69607077/alliance-for-retired-americans-v-bessent/" target="_blank">ALLIANCE FOR RETIRED AMERICANS v. BESSENT</a></li>
+<p>Suit to stop Dept. of Treasury from providing personal information from its files to DOGE</p>
+<div class="donate-button-container">
+<a href="https://www.citizen.org/article/public-citizen-and-public-citizen-foundation/" target="_blank"><button class="donate-btn">Public Citizen</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">American Federation Of Government Employees</button></a>
+
+<a href="https://retiredamericans.org/" target="_blank"><button class="donate-btn">Alliance For Retired Americans</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69623558/state-of-new-york-v-donald-j-trump/" target="_blank">State of New York v. Donald J. Trump</a></li>
+<p>Nineteen states sue under various statutes to prevent DOGE access to government payment data because of the risk of data breach and the potential to cut off payments in a discriminatory manner.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69613359/american-federation-of-labor-and-congress-of-industrial-organizations-v/" target="_blank">AMERICAN FEDERATION OF LABOR AND CONGRESS OF INDUSTRIAL ORGANIZATIONS v. DEPARTMENT OF LABOR</a></li>
+<p>Unions sue to prevent DOGE access to Labor Department records, including benefit payments and worker complaints.</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://www.aft.org/action" target="_blank"><button class="donate-btn">American Federation Of Teachers</button></a>
+
+<a href="https://econaction.org/" target="_blank"><button class="donate-btn">Economic Action Maryland</button></a>
+
+<a href="https://vplc.org/donate/" target="_blank"><button class="donate-btn">Virginia Poverty Law Center</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">American Federation Of Government Employees, AFL-CIO</button></a>
+
+<a href="https://www.epi.org/about/?gad_source=1&gclid=CjwKCAiA5eC9BhAuEiwA3CKwQh5QwBtRGmgUqZQ6v1r12LJrU0To7ciSgkqxXhg62G2E8uBAC9gltxoC_n4QAvD_BwE" target="_blank"><button class="donate-btn">Economic Policy Institute</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69620025/university-of-california-student-association-v-carter/" target="_blank">UNIVERSITY OF CALIFORNIA STUDENT ASSOCIATION v. CARTER</a></li>
+<p>Suit on behalf of students to prevent the Department of Education from releasing student loan data to DOGE, alleging violation of privacy and data systems laws and regulations.</p>
+<div class="donate-button-container">
+<a href="https://www.citizen.org/article/public-citizen-and-public-citizen-foundation/" target="_blank"><button class="donate-btn">Public Citizen</button></a>
+
+<a href="https://secure.actblue.com/donate/national-student-legal-defense-network-1?refcode=header&_gl=1*nd2ezh*_ga*NzMyMzc1MTQ3LjE3Mzk5MTc4OTA.*_ga_QQHHSR098F*MTczOTkxNzg5MC4xLjAuMTczOTkxNzg5MC42MC4wLjA." target="_blank"><button class="donate-btn">National Student Legal Defense Network</button></a>
+
+<a href="https://ucsa.org/get-involved/" target="_blank"><button class="donate-btn">University Of California Student Association</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69627648/american-federation-of-teachers-v-bessent/" target="_blank">American Federation of Teachers v. Bessent</a></li>
+<p>Broad-based suit alleging Privacy Act violations in the release of Treasury and other Federal databases to DOGE.</p>
+<div class="donate-button-container">
+<a href="https://protectdemocracy.org/donate/" target="_blank"><button class="donate-btn">Protect Democracy</button></a>
+
+<a href="https://hls.harvard.edu/clinics/externship-clinics/democracy-and-the-rule-of-law-clinic/" target="_blank"><button class="donate-btn">Democracy and Rule of Law Clinic</button></a>
+
+<a href="International Association of Machinists and Aerospace Workers" target="_blank"><button class="donate-btn">International Association of Machinists and Aerospace Workers</button></a>
+
+<a href="https://www.narfe.org/" target="_blank"><button class="donate-btn">National Active And Retired Federal Employees</button></a>
+
+<a href="https://www.aft.org/action" target="_blank"><button class="donate-btn">American Federation Of Teachers</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69635650/gribbon-v-musk/" target="_blank">GRIBBON v. MUSK</a></li>
+<p>Federal beneficiaries and taxpayers sue the Treasury Department to prevent the sharing of personal information with DOGE. Some allege that their personal information has been used fraudulently.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69646607/center-for-taxpayer-rights-v-internal-revenue-service/" target="_blank">CENTER FOR TAXPAYER RIGHTS v. INTERNAL REVENUE SERVICE</a></li>
+<p>Taxpayers challenge release of IRS data to DOGE as violation of Privacy Act, Tax Reform Act and Administrative Procedure Act</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://mainstreetalliance.org/donate" target="_blank"><button class="donate-btn">Main Street Alliance</button></a>
+
+<a href="https://taxpayer-rights.org/donate/" target="_blank"><button class="donate-btn">Center for Taxpayer Rights</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69664313/american-federation-of-state-county-and-municipal-employees-afl-cio-v/" target="_blank">American Federation of State, County and Municipal Employees, AFL-CIO v. Social Security Administration</a></li>
+<p>Suit to deny DOGE access to Social Security files as a violation of statutory privacy protections, and also challenging unlawful appointment of Musk and DOGE Service.</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://www.aft.org/action" target="_blank"><button class="donate-btn">American Federation Of Teachers</button></a>
+
+<a href="https://retiredamericans.org/" target="_blank"><button class="donate-btn">Alliance For Retired Americans</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+</div>
+<div id="topic4" class="topic-section">
+<h2>Federal Programs</h2>
+<div id="subtopic4-1" class="subtopic-section">
+<h3>USAID</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69619544/american-federation-of-government-employees-v-trump/" target="_blank">AMERICAN FEDERATION OF GOVERNMENT EMPLOYEES v. TRUMP</a></li>
+<p>Challenges dismantling of USAID as not authorized by Congress</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://www.publicjustice.net/" target="_blank"><button class="donate-btn">Public Justice</button></a>
+
+<a href="https://www.citizen.org/article/public-citizen-and-public-citizen-foundation/" target="_blank"><button class="donate-btn">Public Citizen</button></a>
+
+<a href="https://www.oxfamamerica.org/" target="_blank"><button class="donate-btn">Oxfam America, Inc.</button></a>
+
+<a href="https://www.afge.org/take-action/" target="_blank"><button class="donate-btn">American Federation Of Government Employees</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69627654/aids-vaccine-advocacy-coalition-v-united-states-department-of-state/" target="_blank">AIDS VACCINE ADVOCACY COALITION v. UNITED STATES DEPARTMENT OF STATE</a></li>
+<p>Challenges across the Board halt in funding of foreign assistance programs as not authorized by Congress</p>
+<div class="donate-button-container">
+<a href="https://www.citizen.org/article/public-citizen-and-public-citizen-foundation/" target="_blank"><button class="donate-btn">Public Citizen</button></a>
+
+<a href="https://avac.org/" target="_blank"><button class="donate-btn">Aids Vaccine Advocacy Coalition</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69628254/global-health-council-v-donald-j-trump/" target="_blank">GLOBAL HEALTH COUNCIL v. DONALD J. TRUMP</a></li>
+<p>USAID contractors sue for stoppage of payments and activities.</p>
+<div class="donate-button-container">
+<a href="https://msh.org/donate/" target="_blank"><button class="donate-btn">Management Sciences For Health, Inc.</button></a>
+
+<a href="https://act.hias.org/page/53286/donate/1" target="_blank"><button class="donate-btn">Hias</button></a>
+
+<a href="https://globalhealth.org/donate/" target="_blank"><button class="donate-btn">Global Health Council</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69650768/personal-services-contractor-association-v-trump/" target="_blank">PERSONAL SERVICES CONTRACTOR ASSOCIATION v. TRUMP</a></li>
+<p>USAID workers employed under personal service contracts sue to prevent summary termination of USAID programs and their employment/benefits</p>
+<div class="donate-button-container"></div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic4-2" class="subtopic-section">
+<h3>DOGE</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69624423/national-treasury-employees-union-v-vought/" target="_blank">NATIONAL TREASURY EMPLOYEES UNION v. VOUGHT</a></li>
+<p>Challenges Administration effort to close Consumer Financial Protection Bureau (CPFB) as not authorized by Congress</p>
+<div class="donate-button-container">
+<a href="https://www.citizen.org/article/public-citizen-and-public-citizen-foundation/" target="_blank"><button class="donate-btn">Public Citizen</button></a>
+
+<a href="https://vplc.org/donate/" target="_blank"><button class="donate-btn">Virginia Poverty Law Center</button></a>
+
+<a href="https://naacp.org/donate" target="_blank"><button class="donate-btn">NAACP</button></a>
+
+<a href="https://www.nclc.org/" target="_blank"><button class="donate-btn">National Consumer Law Center</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic4-3" class="subtopic-section">
+<h3>CPFB</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69634790/mayor-and-city-council-of-baltimore-v-vought/" target="_blank">Mayor and City Council of Baltimore v. Vought</a></li>
+<p>City sues over OMB efforts to close CPFB, on which it had relied for the financial protection of residents.</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://econaction.org/" target="_blank"><button class="donate-btn">Economic Action Maryland Fund</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic4-4" class="subtopic-section">
+<h3>Multiple</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69583571/national-council-of-nonprofits-v-office-of-management-and-budget/" target="_blank">NATIONAL COUNCIL OF NONPROFITS v. OFFICE OF MANAGEMENT AND BUDGET</a></li>
+<p>Various organizations reliant on Federal funds challenge OMB order to freeze all disbursements and grant awards</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://give.sageusa.org/give/501252/#!/donation/checkout" target="_blank"><button class="donate-btn">Sage</button></a>
+
+<a href="https://mainstreetalliance.org/donate" target="_blank"><button class="donate-btn">Main Street Alliance</button></a>
+
+<a href="https://www.apha.org/" target="_blank"><button class="donate-btn">American Public Health Association</button></a>
+
+<a href="https://www.councilofnonprofits.org/civicrm/contribute/transact?reset=1&id=1" target="_blank"><button class="donate-btn">National Council Of Nonprofits</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69585994/state-of-new-york-v-trump/" target="_blank">State of New York v. Trump</a></li>
+<p>23 States seek injunctive relief against OMB-mandated freeze on disbursements and obligations across a variety of Federal programs</p>
+<div class="donate-button-container"></div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic4-5" class="subtopic-section">
+<h3>Environment</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69636221/shapiro-v-us-department-of-the-interior/" target="_blank">SHAPIRO v. U.S. DEPARTMENT OF THE INTERIOR</a></li>
+<p>Pennsylvania sues to lift freeze on Federal disbursements and obligations for environmental programs, including those limiting damage from abandoned mining sites.</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69652665/northern-alaska-environmental-center-v-trump/" target="_blank">Northern Alaska Environmental Center v. Trump</a></li>
+<p>Variety of environmental groups challenge mass withdrawals of protected status for Outer Continental Shelf waters (Atlantic, Pacific, Gulf of Mexico, Alaska) so that oil exploration/leasing can begin.</p>
+<div class="donate-button-container">
+<a href="https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwirwefTseqLAxVlT0cBHb6eAFEYABABGgJxdQ&co=1&gclid=Cj0KCQiA_Yq-BhC9ARIsAA6fbAgRzrIy2D4RlQrBFqFSqPgV2ny5-AeLlqpWpmoMkHvtLi9KF4XpQdsaAvSZEALw_wcB&ei=ecfDZ8OZCcep5NoPstfZ6Qw&ohost=www.google.com&cid=CAESVuD2ilzgLPh3s3zV56YwhYRb8XdQNeWPCHfLpGS-ORiR2spxlAzotUvm5EtrRngqoOimQFdwwCVFv7rm_4kry-QnmK7Y-I5rvY_SyFi48Aldj5OTz_k-&sig=AOD64_0XgaSDoWphqFO6klJTlfSCeg1A_g&q&sqi=2&adurl&ved=2ahUKEwiDuuHTseqLAxXHFFkFHbJrNs0QqyQoAHoECAcQDQ" target="_blank"><button class="donate-btn">Earthjustice</button></a>
+
+<a href="https://www.nrdc.org/ways-give" target="_blank"><button class="donate-btn">Natural Resources Defense Council</button></a>
+
+<a href="https://act.sierraclub.org/donate/rc_connect__campaign_designform?id=701Po00000UR2sWIAT&formcampaignid=701Po00000UR2SjIAL&ddi=N24ZOTF035&utm_medium=cpc&utm_source=google&gad_source=1&gclid=Cj0KCQiAoJC-BhCSARIsAPhdfSgqwHjzowU0eTOdhmLa2mSIPcvtqM5KVslPopZYrQxx7Nm1sAGrAjAaAijkEALw_wcB&gclsrc=aw.ds" target="_blank"><button class="donate-btn">Sierra Club</button></a>
+
+<a href="https://www.greenpeace.org/international/support/donate-today/" target="_blank"><button class="donate-btn">Greenpeace</button></a>
+
+<a href="https://seaturtles.org/donate/" target="_blank"><button class="donate-btn">Turtle Island Restoration Network</button></a>
+
+<a href="https://www.biologicaldiversity.org/" target="_blank"><button class="donate-btn">Center For Biological Diversity</button></a>
+
+<a href="https://healthygulf.org/donate/" target="_blank"><button class="donate-btn">Healthy Gulf</button></a>
+
+<a href="https://www.surfrider.org/join?utm_term=surfrider&utm_campaign=3q_Google_Search_Surfrider_Brand_MKAG_US&utm_source=adwords&utm_medium=ppc&hsa_acc=4530688483&hsa_cam=17337522888&hsa_grp=132317396370&hsa_ad=706960605520&hsa_src=g&hsa_tgt=kwd-145525950&hsa_kw=surfrider&hsa_mt=b&hsa_net=adwords&hsa_ver=3&gad_source=1&gclid=Cj0KCQiAoJC-BhCSARIsAPhdfShvVYyI_VQA5-6mlQMtoDmEagWCTesGxzUj6yKuShTUX8Pqz5pS43AaAoitEALw_wcB" target="_blank"><button class="donate-btn">Surfrider Foundation</button></a>
+
+<a href="https://act.oceana.org/page/144851/donate/1?ea.tracking.id=ggrant&gad_source=1&gclid=Cj0KCQiAoJC-BhCSARIsAPhdfSigPFKvBfTZDBhuvb3zDuRi1rME1jR2HmD8ds0-jQ4pOEuwPBeN8mwaAke2EALw_wcB" target="_blank"><button class="donate-btn">Oceana, Inc.</button></a>
+
+<a href="https://alaskawild.org/donate/" target="_blank"><button class="donate-btn">Alaska Wilderness League</button></a>
+
+<a href="https://northern.org/donate/" target="_blank"><button class="donate-btn">Northern Alaska Environmental Center</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69665792/northeast-organic-farming-association-of-new-york-v-us-department-of/" target="_blank">Northeast Organic Farming Association of New York v. U.S. Department of Agriculture</a></li>
+<p>Challenges withdrawal of data bases and information about climate change adaptation from Department of Agriculture web sites. Claims violation of Administrative Procedure Act and Freedom of Information Act</p>
+<div class="donate-button-container">
+<a href="https://knightcolumbia.org/page/support-the-knight-institute" target="_blank"><button class="donate-btn">Columbia University Knight Institute</button></a>
+
+<a href="https://www.googleadservices.com/pagead/aclk?sa=L&ai=DChcSEwirwefTseqLAxVlT0cBHb6eAFEYABABGgJxdQ&co=1&gclid=Cj0KCQiA_Yq-BhC9ARIsAA6fbAgRzrIy2D4RlQrBFqFSqPgV2ny5-AeLlqpWpmoMkHvtLi9KF4XpQdsaAvSZEALw_wcB&ei=ecfDZ8OZCcep5NoPstfZ6Qw&ohost=www.google.com&cid=CAESVuD2ilzgLPh3s3zV56YwhYRb8XdQNeWPCHfLpGS-ORiR2spxlAzotUvm5EtrRngqoOimQFdwwCVFv7rm_4kry-QnmK7Y-I5rvY_SyFi48Aldj5OTz_k-&sig=AOD64_0XgaSDoWphqFO6klJTlfSCeg1A_g&q&sqi=2&adurl&ved=2ahUKEwiDuuHTseqLAxXHFFkFHbJrNs0QqyQoAHoECAcQDQ" target="_blank"><button class="donate-btn">Earthjustice</button></a>
+
+<a href="https://act.ewg.org/a/donate?sourceid=1009049&_ga=2.266394830.1713077497.1552461765-425428214.1552461765&gad_source=1&gclid=Cj0KCQiAoJC-BhCSARIsAPhdfSjj7kEUg9sGSlBItuOIuyLfKRfA53bstim3uExDB7EaJRnTXfXWIZwaAlkYEALw_wcB" target="_blank"><button class="donate-btn">Environmental Working Group</button></a>
+
+<a href="https://www.nrdc.org/ways-give" target="_blank"><button class="donate-btn">Natural Resources Defense Council</button></a>
+
+<a href="https://nofany.app.neoncrm.com/forms/donate" target="_blank"><button class="donate-btn">Northeast Organic Farming Association of New York</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic4-6" class="subtopic-section">
+<h3>Health</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69625055/commonwealth-of-massachusetts-v-national-institutes-of-health/" target="_blank">Commonwealth of Massachusetts v. National Institutes of Health</a></li>
+<p>Twenty-two states sue to prevent NIH from cutting the overhead cost rate on all NIH research grants/contracts to 15%</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69627688/association-of-american-universities-v-department-of-health-human/" target="_blank">Association of American Universities v. Department of Health & Human Services</a></li>
+<p>Major universities sue to prevent NIH from cutting the allowable overhead cost rate to 15%</p>
+<div class="donate-button-container">
+<a href="https://fund.caltech.edu/ways_to_give" target="_blank"><button class="donate-btn">The California Instiitute Of Technology</button></a>
+
+<a href="https://alumniandfriends.tufts.edu/giving-to-tufts/ways-give" target="_blank"><button class="donate-btn">Trustees Of Tufts College</button></a>
+
+<a href="https://rochester.edu/advancement/how-to-give/" target="_blank"><button class="donate-btn">University Of Rochester</button></a>
+
+<a href="https://pennfund.upenn.edu/give/ways-to-give/" target="_blank"><button class="donate-btn">Trustees Of The University Of Pennsylvania</button></a>
+
+<a href="https://giving.mit.edu/" target="_blank"><button class="donate-btn">Massachusetts Institute Of Technology</button></a>
+
+<a href="https://giving.jhu.edu/ways-to-give/" target="_blank"><button class="donate-btn">Johns Hopkins University</button></a>
+
+<a href="https://giving.gwu.edu/" target="_blank"><button class="donate-btn">The George Washington University</button></a>
+
+<a href="https://giving.cornell.edu/" target="_blank"><button class="donate-btn">Cornell University</button></a>
+
+<a href="https://giving.uchicago.edu/site/Donation2?df_id=1681&mfc_pref=T&1681.donation=form1" target="_blank"><button class="donate-btn">The University Of Chicago</button></a>
+
+<a href="https://www.cmu.edu/engage/give/index.html" target="_blank"><button class="donate-btn">Carnegie Mellon University</button></a>
+
+<a href="https://ucop.edu/alumni-constituent-affairs/support-uc/index.html" target="_blank"><button class="donate-btn">The Regents Of The University Of California</button></a>
+
+<a href="https://alumni-friends.brown.edu/giving" target="_blank"><button class="donate-btn">Brown University</button></a>
+
+<a href="https://alumni.brandeis.edu/giving/how/index.html" target="_blank"><button class="donate-btn">Brandeis University</button></a>
+
+<a href="https://www.acenet.edu/Membership-Advancement/Pages/Advancement/Ways-to-Give.aspx" target="_blank"><button class="donate-btn">American Council On Education</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69608613/doctors-for-america-v-office-of-personnel-management/" target="_blank">DOCTORS FOR AMERICA v. OFFICE OF PERSONNEL MANAGEMENT</a></li>
+<p>Physician organization sues to prevent Trump Administration from removing health datasets and websites</p>
+<div class="donate-button-container">
+<a href="https://www.citizen.org/article/public-citizen-and-public-citizen-foundation/" target="_blank"><button class="donate-btn">Public Citizen</button></a>
+
+<a href="https://doctorsforamerica.org/donate/#:~:text=Your%20tax%2Ddeductible%20donation%20will,to%20lead%20a%20healthier%20life." target="_blank"><button class="donate-btn">Doctors For America</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic4-7" class="subtopic-section">
+<h3>Transportation</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69652290/metropolitan-transportation-authority-v-duffy/" target="_blank">Metropolitan Transportation Authority v. Duffy</a></li>
+<p>Challenges Trump Administration attempt to cancel New York City congestion pricing program (CPP) as arbitrary and capricious and without any of the process followed (environmental Impact assessment, etc) in the Federal Government’s previous approval of the CPP.</p>
+<div class="donate-button-container">
+<a href="https://mtafoundation.org/give/" target="_blank"><button class="donate-btn">Metropolitan Transportation Authority</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+</div>
+<div id="topic5" class="topic-section">
+<h2>Discrimination</h2>
+<div id="subtopic5-1" class="subtopic-section">
+<h3>Transgender</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69578269/moe-v-trump/" target="_blank">Moe v. Trump</a></li>
+<p>Transgender inmate sues to prevent transfer to Federal men's prison as a denial of equal protection placing her at risk of harm.</p>
+<div class="donate-button-container">
+<a href="https://www.glad.org/get-involved/ways-to-give/" target="_blank"><button class="donate-btn">GLBTQ Legal Advocates & Defenders</button></a>
+
+<a href="https://www.glad.org/get-involved/ways-to-give/" target="_blank"><button class="donate-btn">Gay & Lesbian Advocates & Defenders</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69593824/doe-v-mchenry/" target="_blank">DOE v. MCHENRY</a></li>
+<p>Transgender Federal inmate sues to prevent transfer to male prison</p>
+<div class="donate-button-container">
+<a href="https://www.glad.org/get-involved/ways-to-give/" target="_blank"><button class="donate-btn">GLBTQ Legal Advocates & Defenders</button></a>
+
+<a href="https://www.nclrights.org/get-involved/donate-now/" target="_blank"><button class="donate-btn">National Center for Lesbian Rights</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69628010/jones-v-trump/" target="_blank">JONES v. TRUMP</a></li>
+<p>Federal prison inmate sues to prevent transfer to male prison and denial od medical care</p>
+<div class="donate-button-container"></div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69583866/talbott-v-trump/" target="_blank">TALBOTT v. TRUMP</a></li>
+<p>Transgender service members sue to reverse Trump Administration policy</p>
+<div class="donate-button-container">
+<a href="https://www.nclrights.org/get-involved/donate-now/" target="_blank"><button class="donate-btn">National Center for Lesbian Rights</button></a>
+
+<a href="https://www.glad.org/get-involved/ways-to-give/" target="_blank"><button class="donate-btn">GLBTQ Legal Advocates & Defenders</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69617888/shilling-v-trump/" target="_blank">Shilling v. Trump</a></li>
+<p>Transgender service members sue to prevent discharge</p>
+<div class="donate-button-container">
+<a href="https://give.hrc.org/page/152631/donate/1?ea.tracking.id=dr_don_ck_googl_search_0724&gclsrc=aw.ds&gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbc-w7Yf6KuBNdK3P_nRevdYxQhf_piV1NnQNxz5zeRSw5Gaz2SqJYaAoFAEALw_wcB" target="_blank"><button class="donate-btn">Human Rights Campaign</button></a>
+
+<a href="https://lambdalegal.org/ways-to-give/" target="_blank"><button class="donate-btn">Lambda Legal</button></a>
+
+<a href="https://www.genderjusticeleague.org/give/" target="_blank"><button class="donate-btn">Gender Justice League</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69623342/orr-v-trump/" target="_blank">Orr v. Trump</a></li>
+<p>Suit to reverse Trump order requiring US passport office to assign only the sex at birth on a US passport</p>
+<div class="donate-button-container">
+<a href="https://action.aclu.org/give/now" target="_blank"><button class="donate-btn">ACLU</button></a>
+
+<a href="https://www.aclum.org/en/resources/ways-give" target="_blank"><button class="donate-btn">ACLU of MA</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic5-2" class="subtopic-section">
+<h3>Birthright Citizenship</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69620657/state-of-washington-v-trump/" target="_blank">State of Washington v. Trump</a></li>
+<p>Three states plus physicians challenge the denial of Federal funds to health care institutions providing gender-affirming care.</p>
+<div class="donate-button-container"></div class="donate-button-container"></ul>
+</div>
+</div>
+</div>
+<div id="topic6" class="topic-section">
+<h2>Civil Liberties</h2>
+<div id="subtopic6-1" class="subtopic-section">
+<h3>Civil Liberties</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69662918/associated-press-v-budowich/" target="_blank">ASSOCIATED PRESS v. BUDOWICH</a></li>
+<p>AP sues for breach of freedom of the press when denied White House press access because they did not call the Gulf of Mexico the “Gulf of America”</p>
+<div class="donate-button-container">
+<a href="https://apnews.com/donate" target="_blank"><button class="donate-btn">Associated Press</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+</div>
+<div id="topic7" class="topic-section">
+<h2>Diversity</h2>
+<div id="subtopic7-1" class="subtopic-section">
+<h3>Diversity</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69651274/national-urban-league-v-trump/" target="_blank">NATIONAL URBAN LEAGUE v. TRUMP</a></li>
+<p>Challenges anti-DEI executive orders as violating Constitutional freedom of speech and due process guarantees and the Administrative Procedure Act</p>
+<div class="donate-button-container">
+<a href="https://naacpdc.org/donate" target="_blank"><button class="donate-btn">NAACP DC</button></a>
+
+<a href="https://lambdalegal.org/ways-to-give/" target="_blank"><button class="donate-btn">Lambda Legal</button></a>
+
+<a href="https://www.aidschicago.org/ways-to-give/" target="_blank"><button class="donate-btn">AIDS Foundation of Chicago</button></a>
+
+<a href="https://nationalfairhousing.org/donate/" target="_blank"><button class="donate-btn">National Fair Housing Alliance</button></a>
+
+<a href="https://nul.org/donate" target="_blank"><button class="donate-btn">National Urban League</button></a>
+</div class="donate-button-container"><li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69672728/american-federation-of-teachers-v-us-department-of-education/" target="_blank">American Federation of Teachers v. U.S. Department of Education</a></li>
+<p>Challenges Department of Education orders banning DEI programs as potentially banning the teaching of topics such as the role of race in American history</p>
+<div class="donate-button-container">
+<a href="https://secure.democracyforward.org/a/contribute?gad_source=1&gclid=Cj0KCQiA_NC9BhCkARIsABSnSTbORDq-RZFRgUVx70POd7jrYL4sqWayh2TXRJYp2zWGg17l4hsVcgYaAkszEALw_wcB" target="_blank"><button class="donate-btn">Democracy Forward</button></a>
+
+<a href="https://www.asanet.org/donate/" target="_blank"><button class="donate-btn">American Sociological Association</button></a>
+
+<a href="https://www.aft.org/action" target="_blank"><button class="donate-btn">American Federation Of Teachers</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+<div id="subtopic7-2" class="subtopic-section">
+<h3>Transgender</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69658554/san-francisco-aids-foundation-v-trump/" target="_blank">San Francisco A.I.D.S. Foundation v. Trump</a></li>
+<p>Challenges both “anti-DEI” orders and ”only two sexes” order banning reference to transgender individuals or meeting their needs.</p>
+<div class="donate-button-container">
+<a href="https://lambdalegal.org/ways-to-give/" target="_blank"><button class="donate-btn">Lambda Legal</button></a>
+
+<a href="https://prismacare.org/donate/" target="_blank"><button class="donate-btn">Prisma Community Care</button></a>
+
+<a href="https://forge-forward.org/connect/donate/" target="_blank"><button class="donate-btn">FORGE</button></a>
+
+<a href="https://donorbox.org/bmoresafehaven" target="_blank"><button class="donate-btn">Baltimore Safe Haven Corp.</button></a>
+
+<a href="https://www.bradburysullivancenter.org/donate" target="_blank"><button class="donate-btn">Bradbury-Sullivan LGBT Community Center</button></a>
+
+<a href="https://gaycenter.org/" target="_blank"><button class="donate-btn">Lesbian and Gay Community Services Center</button></a>
+
+<a href="https://give.glaad.org/page/76113/donate/1" target="_blank"><button class="donate-btn">Los Angeles LGBT Center</button></a>
+
+<a href="https://asianpacificfund.org/affiliate/sf-community-health/" target="_blank"><button class="donate-btn">San Francisco Community Health Center (Asian Pacific Islander)</button></a>
+
+<a href="https://www.glbthistory.org/donate" target="_blank"><button class="donate-btn">Gay Lesbian Bisexual Transgender Historical Society</button></a>
+
+<a href="https://www.sfaf.org/" target="_blank"><button class="donate-btn">San Francisco A.I.D.S. Foundation</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+</div>
+<div id="topic8" class="topic-section">
+<h2>DOGE</h2>
+<div id="subtopic8-1" class="subtopic-section">
+<h3>DOGE</h3>
+<div class="organization">
+<ul>
+<li class="case-item"><a class="case-link" href="https://www.courtlistener.com/docket/69658871/citizens-for-responsibility-and-ethics-in-washington-v-us-doge-service/" target="_blank">CITIZENS FOR RESPONSIBILITY AND ETHICS IN WASHINGTON v. U.S. DOGE SERVICE</a></li>
+<p>Seeks to compel release of DOGE documents under the Freedom of Information Act (FOIA)</p>
+<div class="donate-button-container">
+<a href="https://www.citizensforethics.org/" target="_blank"><button class="donate-btn">Citizens for Responsibility & Ethics</button></a>
+
+<a href="https://www.citizensforethics.org/" target="_blank"><button class="donate-btn">Citizens For Responsibility and Ethics In Washington</button></a>
+</div class="donate-button-container"></ul>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
